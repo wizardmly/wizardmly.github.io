@@ -6,7 +6,7 @@
 </ul>
 <h2 id="epoll在Android中的应用"><a href="#epoll在Android中的应用" class="headerlink" title="epoll在Android中的应用"></a>epoll在Android中的应用</h2><p>epoll机制在Android系统中扮演着一个很重要的角色，</p>
 <ol>
-<li>在MessageQueue的队列中，当队列为空时需要阻塞Looper线程，队列非空时候需要唤醒线程，使用到了epoll + pipe机制，高效的管理着消息队列</li>
+<li>在MessageQueue的队列中，当队列为空时需要阻塞Looper线程，队列非空时候需要唤醒线程，使用到了epoll + eventfd(比pipe更高效的事件驱动，在<a href="https://cloud.seu.edu.cn/gitlab/frederickjoe/android-aosp-sdcard/commit/8892ce6383c7aa3e18107b94889882a0374de69f" target="_blank" rel="external">6.0引入</a>)机制，高效的管理着消息队列</li>
 <li>java NIO中 Selector采用了epoll机制实现SocketChannel管道事件轮询</li>
 </ol>
 <h2 id="实例代码"><a href="#实例代码" class="headerlink" title="实例代码"></a>实例代码</h2><p>本例我们采用 epoll + pipe的机制，简单的模拟一个通信唤醒的场景来理解epoll通信，更深入的理解，可以阅读libevent源码</p>
